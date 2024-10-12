@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="main-container" class="flex-container">
+        <div id="left-bar"></div>
+        <div id="game-container" class="grid-container">
+            <div id="header" class="grid-container">
+                <div id="header-title">Odin Tic-Tac-Toe</div>
+                <div id="nav" class="flex-container">
+                    <button id="settings-button">Settings</button>
+                    <button id="my-account-button">My Account</button>
+                    <button id="login-button">Log in</button>
+                    <button id="log-out-button">Log out</button>
+                </div>
+            </div>
+            <input type="text" id="player-1-name" class="active-block opening-screen togglable-block">
+            <input type="text" id="player-2-name" class="active-block opening-screen togglable-block">
+            <button id="start-game-button" class="active-block opening-screen togglable-block">Start Game!</button>
+            <div id="player-1-score" class="inactive game-screen togglable-block">p1</div>
+            <div id="player-2-score" class="inactive game-screen togglable-block">p2</div>
+            <div id="game-message" class="inactive game-screen togglable-block"></div>
+            <div id="board-container" class="inactive game-screen togglable-grid"></div>
+
+            <button id="play-again-button" class="inactive">Play Again</button>
+        </div>
+        <div id="right-bar"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

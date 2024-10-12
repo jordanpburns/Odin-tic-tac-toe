@@ -1,0 +1,127 @@
+.grid-container {
+    display: grid;
+}
+
+.flex-container {
+    display: flex;
+}
+#left-bar, #right-bar {
+    background-color: black;
+    width: calc((100vw - 100vh) / 2);
+}
+
+#game-container {
+    grid-template: repeat(20, 5vh) / repeat(20, 5vh);
+    height: 100vh;
+    width: 100vh;
+}
+
+.active-block {
+    display: block;
+}
+
+.active-grid {
+    display: grid; 
+}
+
+.inactive {
+    display: none;
+}
+
+/* 
+###############
+HEADER 
+###############
+*/
+
+#header {
+    grid-area: 1 / 1 / 2 / -1;
+    grid-template-columns: repeat(20, 5vh);
+    background-color: aliceblue;
+    place-items: center;
+
+}
+
+#header-title {
+    grid-column: 8 / 12;
+}
+
+#nav {
+    grid-column: 15 / 20;
+    gap: 3px;
+}
+
+#nav button {
+    border-radius: 8px;
+}
+
+
+/* 
+###############
+OPENING SCREEN 
+###############
+*/
+
+
+#start-game-button {
+    grid-area: 3 / 8 / 5 / 12;
+    text-align: center;
+    border-radius: 25px;;
+}
+
+#player-1-name {
+    grid-area: 6 / 5 / 8 / 9;
+}
+
+#player-2-name {
+    grid-area: 6 / 11 / 8 / 15;
+}
+
+input {
+    border-radius: 5px;
+    font-size: 62px;
+}
+
+/* 
+###############
+GAME SCREEN 
+###############
+*/
+
+#board-container {
+    grid-area: 6 / 5 / 15 / 17;
+    grid-template: repeat(3, 20vh) / repeat(3, 20vh);
+    gap: 2px;
+}
+
+.cell, button.cell:disabled {
+    border: 2px solid black;
+    border-radius: 3px;
+    padding: 4px;
+    font-size: 36px;
+    text-align: center;
+    background-color: white;
+    color: black;
+}
+
+#player-1-score {
+    grid-area: 3 / 3 / 5 / 6;
+    text-align: center;
+}
+
+#game-message {
+    grid-area: 3 / 6 / 5 / 16;
+    text-align: center;
+}
+
+#player-2-score {
+    grid-area: 3 / 16 / 5 / 19;
+    text-align: center;
+}
+
+#play-again-button {
+    grid-area: 9 / 8 / 13 / 14;
+}
+
+
+
