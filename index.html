@@ -12,23 +12,28 @@
         <div id="left-bar"></div>
         <div id="game-container" class="grid-container">
             <div id="header" class="grid-container">
+                <div id="tic-tac-toe-image-container">
+                    <img id="tic-tac-toe-img" src="./assets/tic-tac-toe.png">
+                </div>
                 <div id="header-title">Odin Tic-Tac-Toe</div>
                 <div id="nav" class="flex-container">
                     <button id="settings-button">Settings</button>
                     <button id="my-account-button">My Account</button>
-                    <button id="login-button">Log in</button>
-                    <button id="log-out-button">Log out</button>
                 </div>
             </div>
+            <div id="player-1-name-label" class="flex-container opening-screen togglable-block">Player One's Name</div>
+            <div id="player-2-name-label"class="flex-container opening-screen togglable-block">Player Two's Name</div>
             <input type="text" id="player-1-name" class="active-block opening-screen togglable-block">
             <input type="text" id="player-2-name" class="active-block opening-screen togglable-block">
             <button id="start-game-button" class="active-block opening-screen togglable-block">Start Game!</button>
             <div id="player-1-score" class="inactive game-screen togglable-block">p1</div>
             <div id="player-2-score" class="inactive game-screen togglable-block">p2</div>
-            <div id="game-message" class="inactive game-screen togglable-block"></div>
+            <div id="game-message"></div>
             <div id="board-container" class="inactive game-screen togglable-grid"></div>
 
             <button id="play-again-button" class="inactive">Play Again</button>
+            <div id="footer">Pattern from <a href="https://ideaweb.me/">Vasudha Chandak</a>, <a href="https://www.flaticon.com/free-icons/tic-tac-toe" title="tic tac toe icons">Tic tac toe icons created by Freepik - Flaticon</a> </div>
+
         </div>
         <div id="right-bar"></div>
     </div>

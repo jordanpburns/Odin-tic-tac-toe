@@ -62,6 +62,9 @@ const Gameboard = () => {
     }
 
     const isTie = () => {
+        if (gameWon === true) {
+            return false;
+        }
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 if (cells[i][j].getValue() === 0) {
@@ -143,24 +146,65 @@ const Game = (player1, player2) => {
 
 const ScreenController = (function () {
     this.game = undefined;
+    this.gameMessageIntervalId = undefined;
 
     const startGameButton = document.getElementById('start-game-button');
     const boardContainer = document.getElementById('board-container');
     const player1Score = document.getElementById("player-1-score");
     const player2Score = document.getElementById("player-2-score");
     const gameMessage = document.getElementById("game-message");
-    const playAgainButton = document.getElementById("play-again-button")
+    const playAgainButton = document.getElementById("play-again-button");
 
     const startGame = () => {
         const player1Name = document.getElementById("player-1-name").value;
         const player2Name = document.getElementById("player-2-name").value;
 
+        if (player1Name === '' && player2Name === '') {
+            printStringByCharacter(
+                string='Please enter names for player 1 and player 2!',
+                element=gameMessage
+            );
+            return;
+        } else if (player1Name === '') {
+            printStringByCharacter(
+                string='Please enter a name for player 1!',
+                element=gameMessage
+            );
+            return;
+        } else if (player2Name === '') {
+            printStringByCharacter(
+                string='Please enter a name for player 2!',
+                element=gameMessage
+            );
+            return;
+        }
         const player1 = Player(player1Name, 1);
         const player2 = Player(player2Name, 2);
 
         this.game = Game(player1, player2);
 
         goToGameScreen();
+    }
+    // adapted from Aayushpatniya: https://medium.com/@aayushpatniya1999/how-to-create-a-typing-effect-for-displaying-text-on-a-webpage-771b69440b61
+    function printStringByCharacter(string='', element, interval=40) {
+        // Prints the string one character at a time into the text content of element.
+        // It waits interval number of ms between each letter.
+
+        //clear contents of element
+        element.textContent='';
+        //stop previous instance of this function so there is no overlap
+        if (this.gameMessageIntervalId != undefined) {
+            clearInterval(this.gameMessageIntervalId);
+        }
+        let index = 0;
+        const intervalId = setInterval(function() {
+            element.textContent += string.charAt(index);
+            index++;
+            if (index == string.length) {
+                clearInterval(intervalId);
+            }
+        }, interval);
+        this.gameMessageIntervalId = intervalId;
     }
 
     startGameButton.addEventListener("click", startGame);
@@ -201,15 +245,28 @@ const ScreenController = (function () {
         renderBoard(this.game);
 
         if (this.game.gameWon()) {
-            gameMessage.textContent = `${this.game.getActivePlayer().name} is the winner! They get 1 point!`
-            
+            printStringByCharacter(
+                string = `${this.game.getActivePlayer().name} is the winner! They get 1 point!`,
+                element = gameMessage);
+
             //disable all cells
             const cells = document.getElementsByClassName("cell");
                 for (c of cells) {
                     c.disabled = true;
                 }
+                boardContainer.classList.add("darkened");
                 playAgainButton.classList.remove("inactive");
                 playAgainButton.classList.add("active-block");
+        }
+
+        if (this.game.isTie()) {
+            printStringByCharacter(
+                string="It's a tie!",
+                element=gameMessage
+            );
+            boardContainer.classList.add("darkened");
+            playAgainButton.classList.remove("inactive");
+            playAgainButton.classList.add("active-block");
         }
     }
 
@@ -249,17 +306,29 @@ const ScreenController = (function () {
         }
 
         //now update score
-        player1Score.textContent = `${this.game.player1.name} : ${this.game.player1.getScore()}`;
-        player2Score.textContent = `${this.game.player2.name} : ${this.game.player2.getScore()}`;
-        gameMessage.textContent = `active player is ${this.game.getActivePlayer().name}`;
+        player1Score.textContent = `${this.game.player1.name}'s Score : ${this.game.player1.getScore()}`;
+        player2Score.textContent = `${this.game.player2.name}'s Score : ${this.game.player2.getScore()}`;
+        if (this.game.gameWon() === false && this.game.isTie() === false) {
+            printStringByCharacter(
+                string = `It is ${this.game.getActivePlayer().name}'s Turn`,
+                element=gameMessage
+            );
+        }
+        
     }
 
     const newRound = () => {
         this.game.resetGame();
         playAgainButton.classList.remove("active-block");
         playAgainButton.classList.add("inactive");
+        boardContainer.classList.remove("darkened");
         renderBoard();
     }
 
     playAgainButton.addEventListener("click", newRound);
+
+    printStringByCharacter(
+        string="Please enter your names and press Start Game!",
+        element=gameMessage
+    );
 })();
